@@ -10,28 +10,34 @@ import UIKit
 
 class MasterViewController: UIViewController {
 
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var myTableView: UITableView!
     @IBOutlet weak var monthLabel: UILabel!
-    
-    var daysArray = NSDate().formatDate()
-    let currentDate = Date(date: NSDate())
-    
+    @IBOutlet weak var myCollectionView: UICollectionView!
+    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
     
+    private let kMargin = CGFloat(0.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.preferredStatusBarStyle()
         
         monthLabel.text = NSDate().stringValue()
-
-        // Do any additional setup after loading the view.
+        
+        flowLayout.sectionInset = UIEdgeInsetsMake(0, kMargin, 0, kMargin)
+        flowLayout.minimumLineSpacing = 0
+        flowLayout.minimumInteritemSpacing = 0
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
+    
+    // MARK: - Action Buttons
+    
+
 
     /*
     // MARK: - Navigation
@@ -45,6 +51,8 @@ class MasterViewController: UIViewController {
 
 }
 
+// MARK: - TableView Methods
+
 extension MasterViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -55,26 +63,56 @@ extension MasterViewController: UITableViewDelegate, UITableViewDataSource {
         return 1 
     }
     
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("taskCell", forIndexPath: indexPath)
-        
         return cell
     }
-    
 }
 
-extension MasterViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+// MARK: - CollectionView Methods
 
+extension MasterViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        return CGSize(width: self.myCollectionView.frame.width/5, height: self.myCollectionView.frame.height)
+    }
+    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return daysArray.count
+        return DateController.sharedController.dateArray.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("dateCell", forIndexPath: indexPath) as! DateCollectionViewCell
-        let day = daysArray[indexPath.item]
-        cell.dateLabel.text = "\(day)"
+        let day = DateController.sharedController.dateArray[indexPath.item]
+        cell.dateLabel.text = "\(day.day)"
+        if day == Date(date: NSDate()) {
+            cell.dateLabel.font = cell.dateLabel.font.fontWithSize(38)
+            cell.dateLabel.shadowColor = .yellowColor()
+            cell.dateLabel.shadowOffset.height = 2
+            cell.dateLabel.shadowOffset.width = 2
+            
+//            cell.selectedDateView.hidden = false
+//            cell.selectedDateView.layer.cornerRadius = min(cell.frame.width, cell.frame.height) / 2.0
+        }
         return cell
     }
-    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

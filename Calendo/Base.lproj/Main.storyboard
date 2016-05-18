@@ -41,7 +41,7 @@
                                     </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ha1-tj-am5">
                                         <rect key="frame" x="0.0" y="48" width="320" height="72"/>
-                                        <color key="backgroundColor" red="1" green="0.44718852796052633" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.94901960780000005" green="0.40784313729999999" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="6LZ-p7-hh4">
                                             <size key="itemSize" width="71" height="73"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -56,8 +56,12 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="71" height="73"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
+                                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BJG-Kv-XOO">
+                                                            <rect key="frame" x="0.0" y="0.0" width="71" height="73"/>
+                                                            <color key="backgroundColor" red="0.93725490199999995" green="0.85882352939999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rlp-ki-DVI">
-                                                            <rect key="frame" x="7" y="21" width="58.5" height="31"/>
+                                                            <rect key="frame" x="6" y="21" width="59" height="31"/>
                                                             <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="22"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -66,11 +70,16 @@
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <constraints>
+                                                    <constraint firstItem="BJG-Kv-XOO" firstAttribute="leading" secondItem="K2e-V9-doK" secondAttribute="leading" id="IgA-6L-oUY"/>
                                                     <constraint firstItem="Rlp-ki-DVI" firstAttribute="centerX" secondItem="K2e-V9-doK" secondAttribute="centerX" id="LAj-E9-rsp"/>
+                                                    <constraint firstAttribute="trailing" secondItem="BJG-Kv-XOO" secondAttribute="trailing" id="QtD-MK-uEz"/>
+                                                    <constraint firstItem="BJG-Kv-XOO" firstAttribute="top" secondItem="K2e-V9-doK" secondAttribute="top" id="k8M-3T-cqb"/>
+                                                    <constraint firstAttribute="bottom" secondItem="BJG-Kv-XOO" secondAttribute="bottom" id="neg-OJ-fP2"/>
                                                     <constraint firstItem="Rlp-ki-DVI" firstAttribute="centerY" secondItem="K2e-V9-doK" secondAttribute="centerY" id="vlT-t0-N7u"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="dateLabel" destination="Rlp-ki-DVI" id="BmP-0l-mOk"/>
+                                                    <outlet property="selectedDateView" destination="BJG-Kv-XOO" id="NTH-dD-L0T"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
@@ -91,7 +100,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aFQ-K2-J9E" id="iwc-2u-PDk">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
@@ -125,7 +134,10 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="flowLayout" destination="6LZ-p7-hh4" id="UJU-SV-qv3"/>
+                        <outlet property="headerView" destination="g2R-GO-Qs8" id="zmd-av-3ac"/>
                         <outlet property="monthLabel" destination="itA-F8-1t3" id="HtP-x9-neW"/>
+                        <outlet property="myCollectionView" destination="Ha1-tj-am5" id="jZo-Ng-GJ9"/>
                         <outlet property="myTableView" destination="5oH-98-qIf" id="gHB-P0-dgW"/>
                     </connections>
                 </viewController>
