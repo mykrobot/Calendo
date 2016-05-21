@@ -1,5 +1,5 @@
 //
-//  Date.swift
+//  Dia.swift
 //  Calendo
 //
 //  Created by Michael Mecham on 5/16/16.
@@ -8,20 +8,21 @@
 
 import Foundation
 
-class Date: Equatable {
+class Dia: Equatable {
     
     var day: Int
     var month: Int
     var year: Int
+    var tasks: [Task] = []
     
-    init(date: NSDate) {
-        let components: NSDateComponents = NSCalendar.currentCalendar().components([.Year, .Month, .Day], fromDate: date)
+    init(dia: NSDate) {
+        let components: NSDateComponents = NSCalendar.currentCalendar().components([.Year, .Month, .Day], fromDate: dia)
         self.day = components.day
         self.month = components.month
         self.year = components.year
     } 
 }
 
-func ==(lhs: Date, rhs: Date) -> Bool {
+func ==(lhs: Dia, rhs: Dia) -> Bool {
     return lhs.year == rhs.year && lhs.month == rhs.month && lhs.day == rhs.day
 }

@@ -9,10 +9,17 @@
 import Foundation
 extension NSDate {
     
-    func stringValue() -> String {
+    func stringValueMonth() -> String {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "MMMM"
         //formatter.timeStyle = .ShortStyle
+        return formatter.stringFromDate(self)
+    }
+    
+    func stringValueFullDateAndTime() -> String {
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .ShortStyle
+        formatter.timeStyle = .ShortStyle
         return formatter.stringFromDate(self)
     }
     
@@ -38,10 +45,10 @@ extension NSDate {
 
 }
 
-//func formatDate(date: NSDate) -> String {
+//func formatDate(dia: NSDate) -> String {
 //    let dateFormatter = NSDateFormatter()
 //    dateFormatter.dateFormat = "dd/MM/yyyy hh:mm:ss"
-//    let s = dateFormatter.stringFromDate( date)
+//    let s = dateFormatter.stringFromDate( dia)
 //    return s
 //}
 

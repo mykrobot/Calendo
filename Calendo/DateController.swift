@@ -12,7 +12,7 @@ class DateController {
     
     static let sharedController = DateController()
     
-    var dateArray: [Date] = []
+    var diaArray: [Dia] = []
     
     let calendar = NSCalendar.currentCalendar()
     
@@ -21,27 +21,33 @@ class DateController {
     }
     
     func checkForDate() {
-        if dateArray.isEmpty {
+        if diaArray.isEmpty {
             calculateDays()
-        } else if dateArray[2] != Date(date: NSDate()) {
+        } else if diaArray[2] != Dia(dia: NSDate()) {
             updateCalendar()
         }
     }
     
     func calculateDays() {
-        let ereyesterday: Date = Date(date: calendar.dateByAddingUnit(.Day, value: -2, toDate: NSDate(), options: []) ?? NSDate())
-        let yesterday: Date = Date(date: calendar.dateByAddingUnit(.Day, value: -1, toDate: NSDate(), options: []) ?? NSDate())
-        let today: Date = Date(date: NSDate())
-        let tomorrow: Date = Date(date: calendar.dateByAddingUnit(.Day, value: +1, toDate: NSDate(), options: []) ?? NSDate())
-        let overmorrow: Date = Date(date: calendar.dateByAddingUnit(.Day, value: +2, toDate: NSDate(), options: []) ?? NSDate())
+        let ereyesterday: Dia = Dia(dia: calendar.dateByAddingUnit(.Day, value: -2, toDate: NSDate(), options: []) ?? NSDate())
+        let yesterday: Dia = Dia(dia: calendar.dateByAddingUnit(.Day, value: -1, toDate: NSDate(), options: []) ?? NSDate())
+        let today: Dia = Dia(dia: NSDate())
+        let tomorrow: Dia = Dia(dia: calendar.dateByAddingUnit(.Day, value: +1, toDate: NSDate(), options: []) ?? NSDate())
+        let overmorrow: Dia = Dia(dia: calendar.dateByAddingUnit(.Day, value: +2, toDate: NSDate(), options: []) ?? NSDate())
         
-        dateArray = [ereyesterday, yesterday, today, tomorrow, overmorrow]
+        diaArray = [ereyesterday, yesterday, today, tomorrow, overmorrow]
     }
     
     func updateCalendar() {
-        dateArray.removeAtIndex(0)
-        let newOvermorrow: Date = Date(date: calendar.dateByAddingUnit(.Day, value: +2, toDate: NSDate(), options: []) ?? NSDate())
-        dateArray.append(newOvermorrow)
+        diaArray.removeAtIndex(0)
+        let newOvermorrow: Dia = Dia(dia: calendar.dateByAddingUnit(.Day, value: +2, toDate: NSDate(), options: []) ?? NSDate())
+        diaArray.append(newOvermorrow)
+    }
+    
+    func addTaskToDia(task: Task, dia: Dia) {
+        if let index = diaArray.indexOf(dia) {
+            diaArray[index].tasks.append(task)
+        }
     }
     
 }
