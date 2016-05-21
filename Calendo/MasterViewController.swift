@@ -18,7 +18,6 @@ class MasterViewController: UIViewController {
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var myDatePicker: UIDatePicker!
     
-    
     private let kMargin = CGFloat(0.0)
     
     var currentDay: Dia?
@@ -38,10 +37,6 @@ class MasterViewController: UIViewController {
         myDatePicker.maximumDate = NSDate(timeIntervalSinceNow: 172800)
     }
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         let centerPoint = CGPointMake(myCollectionView.layer.frame.width / 2, myCollectionView.layer.frame.height / 2)
@@ -49,10 +44,6 @@ class MasterViewController: UIViewController {
             self.centerIndexPath = indexPath
             self.collectionView(myCollectionView, didSelectItemAtIndexPath: indexPath)
         }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
     
     // MARK: - Action Buttons
@@ -69,12 +60,11 @@ class MasterViewController: UIViewController {
             if let taskField: UITextField = alertController.textFields?[0] {
                 let newTask = Task(name: taskField.text ?? "")
                 if let _: UITextField = alertController.textFields?[1] {
-                    newTask.dueDate = self.myDatePicker.date
+                   // newTask.dueDate = self.myDatePicker.date
                 }
                 DateController.sharedController.addTaskToDia(newTask, dia: self.currentDay ?? Dia(dia: NSDate()))
                 self.myTableView.reloadData()
             }
-            
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         alertController.addTextFieldWithConfigurationHandler { (taskNameTextField) in
@@ -88,17 +78,6 @@ class MasterViewController: UIViewController {
         alertController.addAction(cancelAction)
         self.presentViewController(alertController, animated: true, completion: nil)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 // MARK: - TableView Methods
@@ -112,7 +91,7 @@ extension MasterViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("taskCell", forIndexPath: indexPath)
         cell.textLabel?.text = currentDay?.tasks[indexPath.row].name
-        cell.textLabel?.text = currentDay?.tasks[indexPath.row].dueDate ?? ""
+        cell.detailTextLabel?.text = currentDay?.tasks[indexPath.row].dueDate?.stringValueFullDateAndTime() ?? ""
         return cell
     }
 }
